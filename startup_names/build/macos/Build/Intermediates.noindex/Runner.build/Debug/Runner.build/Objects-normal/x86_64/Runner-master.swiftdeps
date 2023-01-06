@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "e7998fcbdb1529b0edb46770645438c1a048dea7bbc8834a2c18279618388b3d"
+build_start_time: [1672967158, 309756994]
+build_end_time: [1672967163, 374166965]
+inputs:
+  "/Users/liutao/Desktop/git/flutter_learn/macos/Flutter/GeneratedPluginRegistrant.swift": [1672967146, 355820178]
+  "/Users/liutao/Desktop/git/flutter_learn/macos/Runner/AppDelegate.swift": [1636352912, 0]
+  "/Users/liutao/Desktop/git/flutter_learn/macos/Runner/MainFlutterWindow.swift": [1636352912, 0]

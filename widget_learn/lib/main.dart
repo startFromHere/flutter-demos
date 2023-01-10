@@ -1,11 +1,44 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:widget_learn/data_communicate_page.dart';
 import 'package:widget_learn/page_default.dart';
+import 'package:widget_learn/provider_custom_optimize_page.dart';
+import 'package:widget_learn/provider_custom_page.dart';
+// import 'package:widget_learn/provider_page.dart';
+import 'package:provider/provider.dart';
+import 'package:widget_learn/provider_page.dart';
 import 'package:widget_learn/state_manage_page.dart';
 import 'package:widget_learn/rows_and_columns_page.dart';
 
+class Bag extends ChangeNotifier {
+  final List<Gem> _items = [];
+
+  UnmodifiableListView<Gem> get items => UnmodifiableListView(_items);
+  int get totalPrice =>
+      _items.fold(0, (previousValue, element) => previousValue + element.price);
+
+  void add(Gem item) {
+    _items.add(item);
+    notifyListeners();
+  }
+
+  void removeAll() {
+    _items.clear();
+    notifyListeners();
+  }
+}
+
+class Gem {
+  Gem(this.price, this.height);
+
+  int price;
+  int height;
+}
+
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (context) => Bag(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +66,8 @@ class MyApp extends StatelessWidget {
         "new_page": (context) => DefaultPage(),
         "RowsAndColumns": (context) => RowsAndColumnsWidget(),
         "StateManage": (context) => StateManagePage(),
-        "DataShare": (context) => DataSharePage()
+        "DataShare": (context) => DataSharePage(),
+        "Provider": (context) => ProviderTestPage(),
       },
     );
   }
@@ -77,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       "RowsAndColumns",
       "new_page",
       "StateManage",
+      "Provider",
       "DataShare",
       "Flex",
       "WrapAndFlow",

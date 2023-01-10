@@ -14,35 +14,14 @@ class _DefaultPageState extends State<DefaultPage> {
       appBar: AppBar(
         title: const Text("test"),
       ),
-      body: Stack(
-        children: [
-          Padding(padding: EdgeInsets.all(4)),
-          Column(
-            children: [
-              TapBoxA(),
-              const Divider(
-                height: 2,
-              ),
-              TapBoxA(),
-              Divider(
-                height: 40,
-              ),
-              ParentWidget(),
-              Divider(
-                height: 2,
-              ),
-              ParentWidget(),
-              Divider(
-                height: 20,
-              ),
-              ParentWidgetC(),
-              Divider(
-                height: 2,
-              ),
-              ParentWidgetC()
-            ],
-          )
-        ],
+      body: Center(
+        child: Container(
+          color: Colors.red,
+          width: 200,
+          height: 100,
+          alignment: Alignment.center,
+          child: Text('123'),
+        ),
       ),
     );
   }

@@ -38,37 +38,41 @@ class _RandomWordsState extends State<RandomWords> {
   final _biggerFont = const TextStyle(fontSize: 18);
 
   void _pushSaved() {
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder: (context) {
-        final tiles = _saved.map((e) {
-          return ListTile(
-            title: Text(
-              e.asPascalCase,
-              style: _biggerFont,
-            ),
-            leading: Spacer(
-              flex: 5,
-            ),
-            trailing: Spacer(
-              flex: 10,
-            ),
-          );
-        });
+    Future r = Navigator.of(context).push(
+      MaterialPageRoute<void>(
+          builder: (context) {
+            final tiles = _saved.map((e) {
+              return ListTile(
+                title: Text(
+                  e.asPascalCase,
+                  style: _biggerFont,
+                ),
+                leading: Spacer(
+                  flex: 5,
+                ),
+                trailing: Spacer(
+                  flex: 10,
+                ),
+              );
+            });
 
-        final divided = tiles.isNotEmpty
-            ? ListTile.divideTiles(
-                    context: context, tiles: tiles, color: Colors.red)
-                .toList()
-            : <Widget>[];
+            final divided = tiles.isNotEmpty
+                ? ListTile.divideTiles(
+                        context: context, tiles: tiles, color: Colors.red)
+                    .toList()
+                : <Widget>[];
 
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Saved Suggestions'),
-          ),
-          body: ListView(children: divided),
-        );
-      },
-    ));
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Saved Suggestions'),
+              ),
+              body: ListView(children: divided),
+            );
+          },
+          settings: RouteSettings(),
+          maintainState: false,
+          fullscreenDialog: false),
+    );
   }
 
   @override

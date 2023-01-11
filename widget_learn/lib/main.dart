@@ -11,34 +11,9 @@ import 'package:widget_learn/provider_page.dart';
 import 'package:widget_learn/state_manage_page.dart';
 import 'package:widget_learn/rows_and_columns_page.dart';
 
-class Bag extends ChangeNotifier {
-  final List<Gem> _items = [];
-
-  UnmodifiableListView<Gem> get items => UnmodifiableListView(_items);
-  int get totalPrice =>
-      _items.fold(0, (previousValue, element) => previousValue + element.price);
-
-  void add(Gem item) {
-    _items.add(item);
-    notifyListeners();
-  }
-
-  void removeAll() {
-    _items.clear();
-    notifyListeners();
-  }
-}
-
-class Gem {
-  Gem(this.price, this.height);
-
-  int price;
-  int height;
-}
-
 void main() {
-  // runApp(const MyApp());
-  runApp(ChangeNotifierProvider(create: (context) => Bag(), child: MyApp()));
+  runApp(const MyApp());
+  // runApp(ChangeNotifierProvider(create: (context) => Bag(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

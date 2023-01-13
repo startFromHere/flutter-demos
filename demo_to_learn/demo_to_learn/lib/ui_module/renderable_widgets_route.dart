@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:route_demo/ui_module/container_widget_page.dart';
 import 'package:route_demo/ui_module/leaf_widgets.dart';
+import 'package:route_demo/ui_module/other_widgets.dart';
 
 class VisiableWidgetsRoute extends StatefulWidget {
   const VisiableWidgetsRoute({super.key});
@@ -74,7 +75,7 @@ class _VisiableWidgetsRouteState extends State<VisiableWidgetsRoute> {
               Tab(
                 text: "布局、容器",
               ),
-              Tab(icon: Icon(Icons.directions_bike)),
+              Tab(text: "其它控件"),
             ]),
           ),
           body: TabBarView(children: [
@@ -85,7 +86,7 @@ class _VisiableWidgetsRouteState extends State<VisiableWidgetsRoute> {
               handleSwitchValueChange: _handleSwitch,
             ),
             ContainerWidgetPage(),
-            Icon(Icons.directions_bike),
+            OtherWidgetsRoute()
           ]),
         ));
   }

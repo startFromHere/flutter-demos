@@ -13,7 +13,7 @@ Map<String, WidgetBuilder> app_routes(BuildContext context) {
     'analyze': (context) => AnalyzeRoute(),
     'mine': (context) => MineRoute(),
     '/settings': (context) => SettingsRoute(),
-    "/RowsAndColumns": (context) => VisiableWidgetsRoute(),
+    "/renderObjectWidgets": (context) => VisiableWidgetsRoute(),
     "/Flex": (context) => VisiableWidgetsRoute(),
     "/WrapAndFlow": (context) => SettingsRoute(),
     "/StackAndPositioned": (context) => SettingsRoute(),

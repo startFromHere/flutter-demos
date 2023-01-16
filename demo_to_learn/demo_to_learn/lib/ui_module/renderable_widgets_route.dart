@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:route_demo/ui_module/container_widget_page.dart';
 import 'package:route_demo/ui_module/leaf_widgets.dart';
 import 'package:route_demo/ui_module/other_widgets.dart';
+import 'package:route_demo/ui_module/scrollable_widgets.dart';
 
 class VisiableWidgetsRoute extends StatefulWidget {
   const VisiableWidgetsRoute({super.key});
@@ -65,10 +66,10 @@ class _VisiableWidgetsRouteState extends State<VisiableWidgetsRoute> {
     // );
 
     return DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: AppBar(
-            bottom: TabBar(tabs: [
+            bottom: TabBar(isScrollable: true, tabs: [
               Tab(
                 text: "基础控件",
               ),
@@ -76,6 +77,9 @@ class _VisiableWidgetsRouteState extends State<VisiableWidgetsRoute> {
                 text: "布局、容器",
               ),
               Tab(text: "其它控件"),
+              Tab(
+                text: "可滚动组件",
+              )
             ]),
           ),
           body: TabBarView(children: [
@@ -86,7 +90,8 @@ class _VisiableWidgetsRouteState extends State<VisiableWidgetsRoute> {
               handleSwitchValueChange: _handleSwitch,
             ),
             ContainerWidgetPage(),
-            OtherWidgetsRoute()
+            OtherWidgetsRoute(),
+            ScrollableWidgetRoute()
           ]),
         ));
   }

@@ -40,7 +40,6 @@ class _DataSharePageState extends State<DataSharePage> {
                 setState(() {
                   count2 += 1;
                 });
-                // count += 2;
                 print("修改 count2");
               },
               child: Text("count2: ${count2}")),

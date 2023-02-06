@@ -12,11 +12,13 @@ class _UIRouteState extends State<UIRoute> {
   Widget build(BuildContext context) {
     final widgetNames = [
       "renderObjectWidgets",
-      "Flex",
-      "WrapAndFlow",
-      "StackAndPositioned",
-      "Align",
+      "PageView",
+      "CustomScrollView",
+      "SliversRoute",
+      "NestedScrollView",
       "LayoutBuilderAndAfterLayout",
+      "ColorAndTheme",
+      "Dialog"
     ];
     return Scaffold(
       appBar: AppBar(

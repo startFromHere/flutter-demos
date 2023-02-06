@@ -10,10 +10,29 @@ class AnalyzeRoute extends StatefulWidget {
 class _AnalyzeRouteState extends State<AnalyzeRoute> {
   @override
   Widget build(BuildContext context) {
+    const pages = [
+      "InheritedWidget",
+      "Provider",
+      "ValueListenable",
+      "AsyncBuilder"
+    ];
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text("analyze"),
+        child: Expanded(
+          child: ListView.builder(
+            itemCount: pages.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(pages[index]),
+                onTap: () {
+                  Navigator.pushNamed(context, "/" + pages[index]);
+                },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

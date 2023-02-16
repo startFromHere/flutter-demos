@@ -9,8 +9,41 @@ class CustomWidgetRoute extends StatefulWidget {
   State<CustomWidgetRoute> createState() => _CustomWidgetRouteState();
 }
 
-class _CustomWidgetRouteState extends State<CustomWidgetRoute> {
+class _CustomWidgetRouteState extends State<CustomWidgetRoute>
+    with SingleTickerProviderStateMixin {
   double _turns = .0;
+
+  late AnimationController _circleProgressAnimationController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _circleProgressAnimationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    bool isForward = true;
+    _circleProgressAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.forward) {
+        isForward = true;
+      } else if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
+        if (isForward) {
+          _circleProgressAnimationController.reverse();
+        } else {
+          _circleProgressAnimationController.forward();
+        }
+      } else if (status == AnimationStatus.reverse) {
+        isForward = false;
+      }
+    });
+    _circleProgressAnimationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _circleProgressAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +75,28 @@ class _CustomWidgetRouteState extends State<CustomWidgetRoute> {
                     },
                     child: Text("顺时针旋转1/5圈")),
                 RepaintBoundary(child: CustomPaintWidget()),
+                AnimatedBuilder(
+                  animation: _circleProgressAnimationController,
+                  builder: (context, child) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: Column(children: [
+                        Wrap(
+                          spacing: 10.0,
+                          runSpacing: 16.0,
+                          children: [
+                            GradientCircularProgressIndicator(
+                                colors: [Colors.blue, Colors.red],
+                                radius: 50.0,
+                                strokeWidth: 20.0,
+                                strokeCapRound: true,
+                                value: _circleProgressAnimationController.value)
+                          ],
+                        )
+                      ]),
+                    );
+                  },
+                )
               ],
             ),
           ),
@@ -225,4 +280,115 @@ void drawPieces(Canvas canvas, Rect rect) {
       Offset(rect.center.dx + eWidth / 2, rect.center.dy - eHeight / 2),
       min(eWidth / 2, eHeight / 2) - 2,
       paint);
+}
+
+class GradientCircularProgressIndicator extends StatelessWidget {
+  const GradientCircularProgressIndicator({
+    Key? key,
+    this.strokeWidth = 2.0,
+    required this.radius,
+    required this.colors,
+    this.stops,
+    this.strokeCapRound = false,
+    this.backgroundColor = const Color(0xFFEEEEEE),
+    this.totalAngle = 2 * pi,
+    this.value,
+  }) : super(key: key);
+
+  final double strokeWidth;
+  final double radius;
+  final bool strokeCapRound;
+  final double? value;
+  final Color backgroundColor;
+  final double totalAngle;
+  final List<Color> colors;
+  final List<double>? stops;
+
+  @override
+  Widget build(BuildContext context) {
+    double _offset = .0;
+    if (strokeCapRound) {
+      _offset = asin(strokeWidth / (radius * 2 - strokeWidth));
+    }
+    var _colors = colors;
+    if (_colors == null) {
+      Color color = Theme.of(context).colorScheme.secondary;
+      _colors = [color, color];
+    }
+    return Transform.rotate(
+      angle: -pi / 2.0 - _offset,
+      child: CustomPaint(
+        size: Size.fromRadius(radius),
+        painter: _GradientCircularProgressPainter(
+            strokeWidth: strokeWidth,
+            strokeCapRound: strokeCapRound,
+            backgroundColor: backgroundColor,
+            value: value,
+            total: totalAngle,
+            radius: radius,
+            colors: _colors),
+      ),
+    );
+  }
+}
+
+class _GradientCircularProgressPainter extends CustomPainter {
+  _GradientCircularProgressPainter(
+      {this.strokeWidth = 10.0,
+      this.strokeCapRound = false,
+      this.backgroundColor = const Color(0xFFEEEEEE),
+      this.radius,
+      this.total = 2 * pi,
+      required this.colors,
+      this.stops,
+      this.value});
+
+  final double strokeWidth;
+  final bool strokeCapRound;
+  final double? value;
+  final Color backgroundColor;
+  final List<Color> colors;
+  final double total;
+  final double? radius;
+  final List<double>? stops;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (radius != null) {
+      size = Size.fromRadius(radius!);
+    }
+    double _offset = strokeWidth / 2.0;
+    double _value = (value ?? .0);
+    _value = _value.clamp(.0, 1.0) * total;
+    double _start = .0;
+
+    if (strokeCapRound) {
+      _start = asin(strokeWidth / (size.width - strokeWidth));
+    }
+
+    Rect rect = Offset(_offset, _offset) &
+        Size(size.width - strokeWidth, size.height - strokeWidth);
+
+    var paint = Paint()
+      ..strokeCap = strokeCapRound ? StrokeCap.round : StrokeCap.butt
+      ..style = PaintingStyle.stroke
+      ..isAntiAlias = true
+      ..strokeWidth = strokeWidth;
+
+    if (backgroundColor != Colors.transparent) {
+      paint.color = backgroundColor;
+      canvas.drawArc(rect, _start, total, false, paint);
+    }
+
+    if (_value > 0) {
+      paint.shader = SweepGradient(
+              startAngle: 0.0, endAngle: _value, colors: colors, stops: stops)
+          .createShader(rect);
+
+      canvas.drawArc(rect, _start, _value, false, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

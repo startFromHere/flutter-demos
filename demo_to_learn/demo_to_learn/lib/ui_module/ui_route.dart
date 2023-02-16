@@ -18,7 +18,8 @@ class _UIRouteState extends State<UIRoute> {
       "NestedScrollView",
       "LayoutBuilderAndAfterLayout",
       "ColorAndTheme",
-      "Dialog"
+      "Dialog",
+      "CustomWidget"
     ];
     return Scaffold(
       appBar: AppBar(

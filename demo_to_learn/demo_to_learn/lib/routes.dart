@@ -8,6 +8,7 @@ import 'package:route_demo/analyze_module/gesture_route.dart';
 import 'package:route_demo/analyze_module/notification_test_route.dart';
 import 'package:route_demo/analyze_module/provider/provider_page.dart';
 import 'package:route_demo/analyze_module/value_listenable.dart';
+import 'package:route_demo/analyze_module/websocket_route.dart';
 import 'package:route_demo/dart_module/dart_route.dart';
 import 'package:route_demo/mine_module/mine_route.dart';
 import 'package:route_demo/mine_module/settings_route.dart';
@@ -43,7 +44,8 @@ Map<String, WidgetBuilder> app_routes(BuildContext context) {
     "/Gesture": (context) => GestureTestRoute(),
     "/Notification": (context) => NotificationTestRoute(),
     "/Animation": (context) => AnimationTestRoute(),
-    "/CustomWidget": (context) => CustomWidgetRoute()
+    "/CustomWidget": (context) => CustomWidgetRoute(),
+    "/Websocket": (context) => WebSocketRoute()
   };
 }
 

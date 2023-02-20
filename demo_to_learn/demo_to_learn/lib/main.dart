@@ -22,6 +22,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+      ],
       home: MyHome(),
       // initialRoute: "/init",
       // initialRoute: "/welcome",

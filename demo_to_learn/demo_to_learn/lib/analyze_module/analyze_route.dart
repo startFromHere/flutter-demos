@@ -18,7 +18,8 @@ class _AnalyzeRouteState extends State<AnalyzeRoute> {
       "AsyncBuilder",
       "Gesture",
       "Notification",
-      "Animation"
+      "Animation",
+      'Websocket'
     ];
 
     return Scaffold(

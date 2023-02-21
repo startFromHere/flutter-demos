@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'messages_all.dart'; //1
+// import 'messages_all.dart'; //1
 
 // class DemoLocalizations {
 //   static Future<DemoLocalizations> load(Locale locale) {
